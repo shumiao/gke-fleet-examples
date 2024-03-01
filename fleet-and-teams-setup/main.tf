@@ -1,13 +1,14 @@
 # This configuration enables configmanagement feature by default.
 # and then creates 2 team scopes and 3 clusters, and bind them according
-# to the diagram.
+# to the diagram in README.
+
 locals {
   fleet_project = "shumiao-test"
 }
 
 provider "google" {
-  project       = "shumiao-test"
-  region        = "us-central1" # Example region; adjust accordingly
+  project = "shumiao-test"
+  region  = "us-central1" # Example region; adjust accordingly
 }
 
 locals {
@@ -20,7 +21,7 @@ locals {
   membership_re = "//gkehub.googleapis.com/projects/([^/]*)/locations/([^/]*)/memberships/([^/]*)$"
 }
 
-# provision config management feature in the fleet host project
+# Provision config management feature in the fleet host project.
 resource "google_gke_hub_feature" "configmanagement_feature" {
   name     = "configmanagement"
   location = "global"
@@ -30,9 +31,9 @@ resource "google_gke_hub_feature" "configmanagement_feature" {
       config_sync {
         source_format = "unstructured"
         git {
-          sync_repo   = "https://github.com/GoogleCloudPlatform/anthos-config-management-samples"
+          sync_repo   = "https://github.com/shumiao/gke-fleet-examples/tree/main/config-management/"
           sync_branch = "main"
-          policy_dir  = "fleet-tenancy/config"
+          policy_dir  = "configs"
           secret_type = "none"
         }
       }
@@ -40,14 +41,14 @@ resource "google_gke_hub_feature" "configmanagement_feature" {
   }
 }
 
-# Scope Creation 
+# Provision teams' scopes with namespaces. 
 resource "google_gke_hub_scope" "scopes" {
-  for_each = { 
-    "backend"  = {} 
-    "frontend" = {} 
+  for_each = {
+    "backend"  = {}
+    "frontend" = {}
   }
-  project     = local.fleet_project
-  scope_id    = each.key 
+  project  = local.fleet_project
+  scope_id = each.key
 }
 
 resource "google_gke_hub_namespace" "frontend_team_namespaces" {
@@ -65,17 +66,18 @@ resource "google_gke_hub_namespace" "backend_team_namespaces" {
   scope              = google_gke_hub_scope.scopes["backend"].id
 }
 
-# provision 3 clusters
+# Provision 3 clusters, and bind them to the teams' scopes.
 resource "google_container_cluster" "clusters" {
-  count    = 3
-  name     = "tf-cluster-${count.index}"
+  count = 3
+  name  = "tf-cluster-${count.index}"
+  initial_node_count = 3
   fleet {
     project = local.fleet_project
   }
   deletion_protection = false
   # create feature before clusters to ensure the fleet_default_member_config
   # is applied to the clusters.
-  depends_on = [google_gke_hub_feature.configmanagement_feature] 
+  depends_on = [google_gke_hub_feature.configmanagement_feature]
 }
 # bind cluster 1 & 2 to backend scope
 resource "google_gke_hub_membership_binding" "backend_cluster_bindings" {
