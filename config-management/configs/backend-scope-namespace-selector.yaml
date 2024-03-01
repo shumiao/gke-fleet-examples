@@ -1,0 +1,9 @@
+apiVersion: configmanagement.gke.io/v1
+kind: NamespaceSelector
+metadata:
+  name: backend-scope
+spec:
+  mode: dynamic
+  selector:
+    matchLabels:
+      fleet.gke.io/fleet-scope: backend  # Change the value of this label selector to match different scopes by scope name
