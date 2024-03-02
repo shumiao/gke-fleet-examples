@@ -31,9 +31,9 @@ resource "google_gke_hub_feature" "configmanagement_feature" {
       config_sync {
         source_format = "unstructured"
         git {
-          sync_repo   = "https://github.com/shumiao/gke-fleet-examples/tree/main/config-management/"
+          sync_repo   = "https://github.com/shumiao/gke-fleet-examples"
           sync_branch = "main"
-          policy_dir  = "configs"
+          policy_dir  = "config-management/configs"
           secret_type = "none"
         }
       }
