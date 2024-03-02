@@ -84,7 +84,7 @@ resource "google_gke_hub_membership_binding" "backend_cluster_bindings" {
   count                 = 2
   project               = local.fleet_project
   membership_binding_id = "to-backend"
-  scope                 = "backend"
+  scope                 = google_gke_hub_scope.scopes["backend"].id
   membership_id         = regex(local.membership_re, google_container_cluster.clusters[count.index].fleet[0].membership)[2]
   location              = regex(local.membership_re, google_container_cluster.clusters[count.index].fleet[0].membership)[1]
 }
@@ -93,7 +93,7 @@ resource "google_gke_hub_membership_binding" "frontend_cluster_bindings" {
   count                 = 3
   project               = local.fleet_project
   membership_binding_id = "to-frontend"
-  scope                 = "frontend"
+  scope                 = google_gke_hub_scope.scopes["frontend"].id
   membership_id         = regex(local.membership_re, google_container_cluster.clusters[count.index].fleet[0].membership)[2]
   location              = regex(local.membership_re, google_container_cluster.clusters[count.index].fleet[0].membership)[1]
 }
