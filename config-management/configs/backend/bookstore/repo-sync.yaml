@@ -8,7 +8,7 @@ spec:
     matchLabels:
       fleet.gke.io/fleet-scope: backend
       kubernetes.io/metadata.name: bookstore
-
+---
 kind: RepoSync
 apiVersion: configsync.gke.io/v1beta1
 metadata:
