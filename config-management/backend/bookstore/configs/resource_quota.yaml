@@ -1,0 +1,7 @@
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+  name: bookstore-resource-quota
+spec:
+  hard:
+    persistentvolumeclaims: "6"
