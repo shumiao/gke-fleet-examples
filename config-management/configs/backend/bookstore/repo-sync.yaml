@@ -1,0 +1,24 @@
+apiVersion: configmanagement.gke.io/v1
+kind: NamespaceSelector
+metadata:
+  name: backend-bookstore
+spec:
+  mode: dynamic
+  selector:
+    matchLabels:
+      fleet.gke.io/fleet-scope: backend
+      kubernetes.io/metadata.name: bookstore
+
+kind: RepoSync
+apiVersion: configsync.gke.io/v1beta1
+metadata:
+  name: backend-bookstore-repo-sync
+  annotations:
+    configmanagement.gke.io/namespace-selector: backend-bookstore
+spec:
+  sourceFormat: unstructured
+  git:
+    repo: https://github.com/shumiao/gke-fleet-examples
+    branch: main
+    dir: config-management/configs/backend/bookstore/team-managed-configs
+    auth: none
