@@ -2,8 +2,6 @@ kind: ResourceQuota
 apiVersion: v1
 metadata:
   name: bookstore-resource-quota
-  annotations:
-    configmanagement.gke.io/namespace-selector: backend-bookstore
 spec:
   hard:
     persistentvolumeclaims: "6"
