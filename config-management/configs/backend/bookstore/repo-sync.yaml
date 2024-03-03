@@ -20,7 +20,7 @@ spec:
   git:
     repo: https://github.com/shumiao/gke-fleet-examples
     branch: main
-    dir: config-management/configs/backend/bookstore/team-managed-configs
+    dir: config-management/backend/bookstore/configs
     auth: none
 ---
 # Give repo sync reconciler permissions to manage the k8s objects.
