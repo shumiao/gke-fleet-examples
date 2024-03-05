@@ -9,5 +9,8 @@ resource "google_container_cluster" "fleet-control-cluster" {
   fleet {
     project = local.fleet_project
   }
+  workload_identity_config {
+    workload_pool = "${data.google_project.project.project_id}.svc.id.goog"
+  }
   deletion_protection = false
 }
