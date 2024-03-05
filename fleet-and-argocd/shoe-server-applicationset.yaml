@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: shoe-server-applicationset
+spec:
+  generators:
+    - list:  # Use the list generator
+        elements:
+          - cluster: tf-cluster-0
+          - cluster: tf-cluster-1
+          - cluster: tf-cluster-2
+  template:
+    metadata:
+      name: '{{cluster}}-{{values.app}}' 
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/shumiao/gke-fleet-examples
+        targetRevision: HEAD
+        path: fleet-and-argocd/shoe-server-application/manifest 
+      destination:
+        server: '{{server}}' # 'server' field of the cluster secret
+        namespace: shoe-server
