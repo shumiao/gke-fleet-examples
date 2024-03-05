@@ -74,6 +74,10 @@ resource "google_container_cluster" "clusters" {
   fleet {
     project = local.fleet_project
   }
+  # Enable Workload Identity
+  workload_identity_config {
+    workload_pool = "${data.google_project.project.project_id}.svc.id.goog"
+  }
   deletion_protection = false
   # create feature before clusters to ensure the fleet_default_member_config
   # is applied to the clusters.
