@@ -19,5 +19,5 @@ spec:
         targetRevision: HEAD
         path: fleet-and-argocd/shoe-server-application/manifest 
       destination:
-        server: '{{server}}' # 'server' field of the cluster secret
+        server: '{{cluster}}'
         namespace: shoe-server
