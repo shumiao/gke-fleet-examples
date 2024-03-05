@@ -11,7 +11,7 @@ spec:
           - cluster: tf-cluster-2
   template:
     metadata:
-      name: '{{cluster}}-{{values.app}}' 
+      name: '{{cluster}}-shoe-server' 
     spec:
       project: default
       source:
