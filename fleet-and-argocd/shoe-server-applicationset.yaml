@@ -4,14 +4,13 @@ metadata:
   name: shoe-server-applicationset
 spec:
   generators:
-    - list:  # Use the list generator
-        elements:
-          - cluster: tf-cluster-0
-          - cluster: tf-cluster-1
-          - cluster: tf-cluster-2
+  - clusters:
+      selector: 
+        matchLabels:
+          argocd.argoproj.io/secret-type: cluster
   template:
     metadata:
-      name: '{{cluster}}-shoe-server' 
+      name: '{{name}}-shoe-server' 
     spec:
       project: default
       source:
@@ -19,5 +18,5 @@ spec:
         targetRevision: HEAD
         path: fleet-and-argocd/shoe-server-application/manifest 
       destination:
-        server: '{{cluster}}'
+        server: '{{server}}'
         namespace: shoe-server
