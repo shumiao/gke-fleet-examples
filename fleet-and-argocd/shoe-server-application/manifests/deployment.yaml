@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shoe-server-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: shoe-server-app 
+  template:
+    metadata:
+      labels:
+        app: shoe-server-app
+    spec:
+      containers:
+      - name: shoe-server-app
+        image: my-organization/my-demo-image:latest # Replace with your image
+        ports:
+        - containerPort: 80
