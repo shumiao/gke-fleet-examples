@@ -19,4 +19,4 @@ spec:
         path: fleet-and-argocd/shoe-server-application/manifests
       destination:
         server: '{{server}}'
-        namespace: shoe-server
+        namespace: shoestore
