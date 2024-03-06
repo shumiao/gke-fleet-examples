@@ -16,7 +16,7 @@ spec:
       source:
         repoURL: https://github.com/shumiao/gke-fleet-examples
         targetRevision: HEAD
-        path: fleet-and-argocd/shoe-server-application/manifest 
+        path: fleet-and-argocd/shoe-server-application/manifests
       destination:
         server: '{{server}}'
         namespace: shoe-server
