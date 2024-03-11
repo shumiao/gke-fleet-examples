@@ -17,4 +17,4 @@ spec:
       - name: demo-web-server 
         image: gcr.io/my-project/demo-web-server:v1.0 # Your image path
         ports:
-        - containerPort: 80 # Expose port 80 of the container
+        - containerPort: 8888 # Expose port 8888 of the container
