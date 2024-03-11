@@ -8,6 +8,8 @@ spec:
       selector: 
         matchLabels:
           argocd.argoproj.io/secret-type: cluster
+          createdBy: argocd-fleet-syncer:
+          fleetScope: frontend
   template:
     metadata:
       name: '{{name}}-shoe-server' 
