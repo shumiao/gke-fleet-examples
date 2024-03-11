@@ -18,7 +18,7 @@ resource "google_container_cluster" "clusters" {
   }
   # Enable Workload Identity
   workload_identity_config {
-    workload_pool = "${data.google_project.project.project_id}.svc.id.goog"
+    workload_pool = "${fleet_project}.svc.id.goog"
   }
   deletion_protection = false
 }
