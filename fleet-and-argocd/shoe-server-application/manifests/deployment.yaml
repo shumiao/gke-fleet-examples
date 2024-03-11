@@ -1,19 +1,20 @@
-apiVersion: apps/v1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
-  name: shoe-server-app-deployment
+  name: demo-web-server 
+  namespace: shoestore # Update if your namespace is different
 spec:
-  replicas: 2
+  replicas: 1 # Adjust as needed
   selector:
     matchLabels:
-      app: shoe-server-app 
+      app: demo-web-server 
   template:
     metadata:
       labels:
-        app: shoe-server-app
+        app: demo-web-server 
     spec:
       containers:
-      - name: shoe-server-app
-        image: us-central1-docker.pkg.dev/shumiao-test/demo-web-server/demo-web-server:v1.0
+      - name: demo-web-server 
+        image: gcr.io/my-project/demo-web-server:v1.0 # Your image path
         ports:
-        - containerPort: 80
+        - containerPort: 80 # Expose port 80 of the container
