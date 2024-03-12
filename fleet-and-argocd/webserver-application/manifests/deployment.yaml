@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: demo-web-server 
-  namespace: shoestore # Update if your namespace is different
+  namespace: webserver
 spec:
-  replicas: 1 # Adjust as needed
+  replicas: 1
   selector:
     matchLabels:
       app: demo-web-server 
