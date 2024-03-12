@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argocd-fleet-syncer
+  namespace: argocd
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: argocd
+  name: argocd-fleet-syncer-secrets-role
+rules:
+- apiGroups: [""] # Core API group
+  resources: ["secrets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: argocd
+  name: argocd-fleet-syncer-secrets-rolebinding
+subjects:
+- kind: ServiceAccount
+  name: argocd-fleet-syncer
+  namespace: argocd 
+roleRef:
+  kind: Role 
+  name: argocd-fleet-syncer-secrets-role 
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-fleet-syncer 
+  namespace: argocd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: argocd-fleet-syncer
+  template:
+    metadata:
+      labels:
+        app: argocd-fleet-syncer
+    spec:
+      serviceAccount: argocd-fleet-syncer
+      serviceAccountName: argocd-fleet-syncer
+      containers:
+      - name: argocd-fleet-syncer
+        image: us-central1-docker.pkg.dev/shumiao-test/argocd-fleet-syncer-repo/argocd-fleet-syncer:5.0
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+            ephemeral-storage: "1Gi"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+            ephemeral-storage: "1Gi"
