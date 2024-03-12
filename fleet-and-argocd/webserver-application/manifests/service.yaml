@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-webserver-service
+spec:
+  selector:
+    app: demo-web-server
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 8888
