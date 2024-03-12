@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: shoe-server-applicationset
+  name: webserver-applicationset
 spec:
   generators:
   - clusters:
@@ -12,13 +12,13 @@ spec:
           fleetScope: frontend
   template:
     metadata:
-      name: '{{name}}-shoe-server' 
+      name: '{{name}}-webserver' 
     spec:
       project: default
       source:
         repoURL: https://github.com/shumiao/gke-fleet-examples
         targetRevision: HEAD
-        path: fleet-and-argocd/shoe-server-application/manifests
+        path: fleet-and-argocd/webserver-application/manifests
       destination:
         server: '{{server}}'
-        namespace: shoestore
+        namespace: webserver
