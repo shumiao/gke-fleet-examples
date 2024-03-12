@@ -24,7 +24,7 @@ resource "google_container_cluster" "fleet-control-cluster" {
 # Provision 3 application clusters
 resource "google_container_cluster" "clusters" {
   count = 3
-  name  = "app-cluster-${count.index}"
+  name  = "app-cluster-${count.index + 1}"
   initial_node_count = 3
   fleet {
     project = local.fleet_project
