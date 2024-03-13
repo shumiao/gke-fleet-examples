@@ -10,6 +10,7 @@ spec:
         matchLabels:
           argocd.argoproj.io/secret-type: cluster
           createdBy: argocd-fleet-syncer
+          # Targeting at clusters where the "frontend" team has a presence.
           fleetScope: frontend
   template:
     metadata:
@@ -17,9 +18,11 @@ spec:
     spec:
       project: default
       source:
+        # A source repo and path that the "frontend" team has write access to. 
         repoURL: https://github.com/shumiao/gke-fleet-examples
         targetRevision: HEAD
         path: fleet-and-argocd/webserver-application/manifests
       destination:
         server: '{{server}}'
+        # Only syncing into the "webserver" fleet namespace.
         namespace: webserver
