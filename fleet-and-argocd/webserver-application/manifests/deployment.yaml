@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: demo-web-server 
-        image: us-central1-docker.pkg.dev/shumiao-test/demo-web-server/demo-web-server:v1.0
+        image: us-central1-docker.pkg.dev/shumiao-test/demo-web-server/demo-web-server:v2.0
         ports:
         - containerPort: 8888 # Expose port 8888 of the container
