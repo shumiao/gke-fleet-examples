@@ -49,7 +49,7 @@ spec:
       serviceAccountName: argocd-fleet-syncer
       containers:
       - name: argocd-fleet-syncer
-        image: us-central1-docker.pkg.dev/shumiao-test/argocd-fleet-syncer-repo/argocd-fleet-syncer:5.0
+        image: us-central1-docker.pkg.dev/shumiao-test/argocd-fleet-syncer-repo/argocd-fleet-syncer:v5.0
         imagePullPolicy: Always
         resources:
           requests:
