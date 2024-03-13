@@ -27,6 +27,5 @@ spec:
         # Only syncing into the "webserver" fleet namespace.
         namespace: webserver
   syncPolicy:
-      automated:
-        prune: true # Delete resources removed from Git
-        selfHeal: true # Prevent drifting and revert changes made directly in the cluster 
+    # The controller will delete Applications when the ApplicationSet is deleted.
+    preserveResourcesOnDeletion: false
